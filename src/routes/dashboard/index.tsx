@@ -11,9 +11,7 @@ function RouteComponent() {
     <div>
       <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
         <SectionCards />
-        <div className="px-2 lg:px-6">
-          <ChartAreaInteractive />
-        </div>
+        <ChartAreaInteractive />
       </div>
     </div>
   );

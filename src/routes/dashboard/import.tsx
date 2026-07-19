@@ -5,5 +5,9 @@ export const Route = createFileRoute('/dashboard/import')({
 })
 
 function RouteComponent() {
-  return <div>Hello "/dashboard/import"!</div>
+  return (
+     <div>
+         <h1>Import Page</h1>
+     </div>
+  )
 }

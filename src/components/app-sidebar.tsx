@@ -1,8 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import * as React from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -11,8 +9,18 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { LayoutDashboardIcon, ListIcon, ChartBarIcon, FolderIcon, UsersIcon, CameraIcon, FileTextIcon, Settings2Icon, CircleHelpIcon, SearchIcon, DatabaseIcon, FileChartColumnIcon, FileIcon, CommandIcon } from "lucide-react"
+} from "@/components/ui/sidebar";
+import {
+  LayoutDashboardIcon,
+  ChartBarIcon,
+  FolderIcon,
+  UsersIcon,
+  CommandIcon,
+  ContainerIcon,
+} from "lucide-react";
+import { NavMain } from "./nav-main";
+import { NavUser } from "./nav-user";
+import { Link } from "@tanstack/react-router";
 
 const data = {
   user: {
@@ -23,155 +31,31 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
-      icon: (
-        <LayoutDashboardIcon
-        />
-      ),
+      url: "/dashboard",
+      icon: <LayoutDashboardIcon />,
     },
     {
-      title: "Lifecycle",
-      url: "#",
-      icon: (
-        <ListIcon
-        />
-      ),
+      title: "Content Item",
+      url: "/dashboard/items",
+      icon: <ContainerIcon />,
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: (
-        <ChartBarIcon
-        />
-      ),
+      title: "Discover",
+      url: "/dashboard/discover",
+      icon: <ChartBarIcon />,
     },
     {
-      title: "Projects",
-      url: "#",
-      icon: (
-        <FolderIcon
-        />
-      ),
+      title: "Import",
+      url: "/dashboard/import",
+      icon: <FolderIcon />,
     },
     {
       title: "Team",
       url: "#",
-      icon: (
-        <UsersIcon
-        />
-      ),
+      icon: <UsersIcon />,
     },
   ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: (
-        <CameraIcon
-        />
-      ),
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: (
-        <FileTextIcon
-        />
-      ),
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: (
-        <FileTextIcon
-        />
-      ),
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: (
-        <Settings2Icon
-        />
-      ),
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: (
-        <CircleHelpIcon
-        />
-      ),
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: (
-        <SearchIcon
-        />
-      ),
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: (
-        <DatabaseIcon
-        />
-      ),
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: (
-        <FileChartColumnIcon
-        />
-      ),
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: (
-        <FileIcon
-        />
-      ),
-    },
-  ],
-}
+};
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -180,11 +64,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton
               className="data-[slot=sidebar-menu-button]:p-1.5!"
-              render={<a href="#" />}
-            >
-              <CommandIcon className="size-5!" />
-              <span className="text-base font-semibold">CodeNonstop.Ai</span>
-            </SidebarMenuButton>
+              render={
+                <Link to="/" className="flex items-center gap-3">
+                  <CommandIcon className="size-5!" />
+                  <span className="text-base font-semibold">
+                    CodeNonstop.Ai
+                  </span>
+                </Link>
+              }
+            ></SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -195,5 +83,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

@@ -1,24 +1,15 @@
-import {
-  BookmarkIcon,
-  Compass,
-  Heading2Icon,
-  Import,
-  ShowerHead,
-} from "lucide-react";
+import { BookmarkIcon, Compass, Import } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarRail,
 } from "../ui/sidebar";
-import { NavUser } from "./nav-user";
-import { Link, linkOptions } from "@tanstack/react-router";
+import { UserNavToggle } from "./nav-user";
+import { linkOptions } from "@tanstack/react-router";
 import { NavDashboard } from "./nav-dashbaord";
 import type { NavPrimalyProps } from "#/lib/types.ts";
+import { NavDashboardToggle } from "./nav-dashboard";
 
 const navItems: NavPrimalyProps["item"] = linkOptions([
   {
@@ -44,30 +35,12 @@ const navItems: NavPrimalyProps["item"] = linkOptions([
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <SidebarHeader>
-          <SidebarMenu >
-            <SidebarMenuItem >
-              <SidebarMenuButton size="lg">
-                <Link to="/dashboard" className="flex items-center gap-3">
-                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                    <BookmarkIcon className="size-4" />
-                  </div>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="font-medium">CodeNonStop</span>
-                    <span className="text-xs">Your AI Knowledge Base</span>
-                  </div>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-      </SidebarHeader>
+      <NavDashboardToggle/>
       <SidebarContent>
         <NavDashboard item={navItems} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser />
+        <UserNavToggle />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

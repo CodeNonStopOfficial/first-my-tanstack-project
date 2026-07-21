@@ -19,11 +19,13 @@ import {
   TabsList,
   TabsTrigger,
 } from "#/components/ui/tabs.tsx";
+import { scrapeUrlFn } from "#/data/items.ts";
 import { blunkSchema, importSchema } from "#/schema/import.ts";
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute } from "@tanstack/react-router";
 import { Globe, LinkIcon, Loader2 } from "lucide-react";
 import { useTransition } from "react";
+
 
 export const Route = createFileRoute("/dashboard/import")({
   component: RouteComponent,
@@ -31,6 +33,7 @@ export const Route = createFileRoute("/dashboard/import")({
 
 function RouteComponent() {
   const [isPending, startTransition] = useTransition();
+  const [isBlukPending, startBlukTransition] = useTransition();
   const form = useForm({
     defaultValues: {
       url: "",
@@ -39,8 +42,9 @@ function RouteComponent() {
       onSubmit: importSchema,
     },
     onSubmit: ({ value }) => {
-      startTransition(() => {
+      startTransition(async () => {
         console.log(value);
+        await scrapeUrlFn({data:value});
       });
     },
   });
@@ -54,7 +58,9 @@ function RouteComponent() {
       onSubmit: blunkSchema,
     },
     onSubmit: ({ value }) => {
-      console.log(value);
+      startBlukTransition(async()=>{
+         console.log(value)
+      })
     },
   });
 
@@ -214,8 +220,8 @@ function RouteComponent() {
                       }}
                     />
 
-                    <Button type="submit" disabled={isPending}>
-                      {isPending ? (
+                    <Button type="submit" disabled={isBlukPending}>
+                      {isBlukPending ? (
                         <>
                           <Loader2 className="size-4 animate-spin" />
                           Processing...

@@ -18,6 +18,7 @@ import {
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
 import { Link } from "@tanstack/react-router";
+import type { NavUserProps } from "#/lib/types.ts";
 
 const data = {
   navMain: [
@@ -48,7 +49,7 @@ const data = {
     },
   ],
 };
-export function AppSidebar() {
+export function AppSidebar({user}: NavUserProps) {
   return (
     <Sidebar collapsible="offcanvas">
       <SidebarHeader>
@@ -72,7 +73,7 @@ export function AppSidebar() {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser />
+        <NavUser user={user}/>
       </SidebarFooter>
     </Sidebar>
   );

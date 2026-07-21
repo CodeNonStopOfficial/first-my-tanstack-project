@@ -27,9 +27,9 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { Skeleton } from "./ui/skeleton";
+import type { NavUserProps } from "#/lib/types.ts";
 
-export function NavUser() {
-  const { data: session, isPending } = authClient.useSession();
+export function NavUser({ user }: NavUserProps) {
   const { isMobile } = useSidebar();
   const navigate = useNavigate();
   async function LogOutHandleUser() {
@@ -47,7 +47,7 @@ export function NavUser() {
       },
     });
   }
-  if (isPending) {
+  if (!user) {
     return (
       <div className="flex items-center gap-4">
         <Skeleton className="h-12 w-12 rounded-full" />
@@ -68,16 +68,13 @@ export function NavUser() {
             }
           >
             <Avatar className="size-8 rounded-lg grayscale">
-              <AvatarImage
-                src={session?.user.image ?? ""}
-                alt={session?.user.name}
-              />
+              <AvatarImage src={user?.image ?? `https://api.dicebear.com/10.x/glass/svg/seed${user?.name}`} alt={user?.name} />
               <AvatarFallback className="rounded-lg">CN</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-medium">{session?.user.name}</span>
+              <span className="truncate font-medium">{user?.name}</span>
               <span className="truncate text-xs text-foreground/70">
-                {session?.user.email}
+                {user?.email}
               </span>
             </div>
             <EllipsisVerticalIcon className="ml-auto size-4" />
@@ -92,18 +89,13 @@ export function NavUser() {
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="size-8">
-                    <AvatarImage
-                      src={session?.user.image ?? ""}
-                      alt={session?.user.name}
-                    />
+                    <AvatarImage src={user?.image ?? `https://api.dicebear.com/10.x/glass/svg/seed${user?.name}`} alt={user?.name} />
                     <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium">
-                      {session?.user.name}
-                    </span>
+                    <span className="truncate font-medium">{user.name}</span>
                     <span className="truncate text-xs text-muted-foreground">
-                      {session?.user.email}
+                      {user?.email}
                     </span>
                   </div>
                 </div>

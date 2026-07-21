@@ -1,13 +1,22 @@
+
 import { AppSidebar } from "#/components/app-sidebar.tsx";
 import { SiteHeader } from "#/components/site-header.tsx";
 import { SidebarInset, SidebarProvider } from "#/components/ui/sidebar.tsx";
+import { getSessionFn } from "#/data/session.ts";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard")({
   component: RouteComponent,
+  loader : async()=>{
+     const session = await getSessionFn();
+     return {
+       user : session.user
+     }
+  }
 });
 
 function RouteComponent() {
+  const {user} = Route.useLoaderData();
   return (
     <div>
       <SidebarProvider
@@ -18,7 +27,7 @@ function RouteComponent() {
           } as React.CSSProperties
         }
       >
-        <AppSidebar variant="inset" />
+        <AppSidebar user={user} />
         <SidebarInset>
           <SiteHeader />
           <div className="flex flex-1 flex-col">

@@ -1,16 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { buttonVariants } from "../ui/button";
 import { ThemeToggle } from "./theme-toggle";
-import { authClient } from "@/lib/auth-client";
 import { UserMeneToggle } from "./user-togglemenu";
-import { useEffect } from "react";
+import type { NavUserProps } from "#/lib/types.ts";
 
-export function Navbar() {
-  const { data: session, isPending, refetch } = authClient.useSession();
-
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+export function Navbar({user}:NavUserProps) {
 
   return (
     <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 ">
@@ -26,9 +20,9 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          {isPending ? null : session ? (
+          {user ? (
             <>
-              <UserMeneToggle user={session} />
+              <UserMeneToggle user={user} />
             </>
           ) : (
             <>

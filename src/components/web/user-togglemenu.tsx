@@ -15,26 +15,19 @@ import {
 import { authClient } from "#/lib/auth-client.ts";
 import { toast } from "sonner";
 import { Separator } from "../ui/separator";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import type { NavUserProps } from "#/lib/types.ts";
 
-type UserMenuToggleProps = {
-  user: {
-    user: {
-      id: string;
-      name: string;
-      email: string;
-    };
-    session: {
-      id: string;
-    };
-  };
-};
 
-export function UserMeneToggle({ user }: UserMenuToggleProps) {
+export function UserMeneToggle({ user }: NavUserProps) {
+  const navigate = useNavigate();
   const handleSignOut = async () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
+          navigate({
+             to :"/login"
+          })
           toast.success("Signed out successfully");
         },
         onError: ({ error }) => {
@@ -47,16 +40,16 @@ export function UserMeneToggle({ user }: UserMenuToggleProps) {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src={user?.image ?? "https://github.com/shadcn.png"} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center" className="w-46 space-y-1">
         <DropdownMenuItem>
-          <div className="flex flex-col">
-            <span>Name: {user?.user.name}</span>
-            <span className="text-muted-foreground">
-              Email: {user?.user.email?.toUpperCase().split("@")[0]}
+          <div className="flex flex-col overflow-hidden">
+            <span>Name: {user?.name}</span>
+            <span className="text-sm w-fit">
+              {user?.email.charAt(0).toUpperCase() + user.email.slice(1).toLowerCase()}
             </span>
           </div>
         </DropdownMenuItem>

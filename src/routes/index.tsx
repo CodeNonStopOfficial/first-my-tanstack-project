@@ -1,6 +1,7 @@
 import { buttonVariants } from "#/components/ui/button.tsx";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "#/components/ui/card.tsx";
 import { Navbar } from "#/components/web/Navbar.tsx";
+import { getSessionFn } from "#/data/session.ts";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -18,6 +19,12 @@ import {
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
+  loader : async()=>{
+     const session = await getSessionFn();
+     return{
+        user : session.user
+     } 
+  },
   head: () => ({
     meta: [
       { title: "Learn TanStack Start | Build Full-Stack React Apps" },
@@ -85,10 +92,11 @@ const features = [
 ];
 
 function LandingPage() {
+  const {user} = Route.useLoaderData();
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <Navbar />
+      <Navbar user={user} />
 
       {/* Hero Section */}
       <section className="relative flex flex-col items-center justify-center overflow-hidden px-4 py-20 text-center md:py-32">

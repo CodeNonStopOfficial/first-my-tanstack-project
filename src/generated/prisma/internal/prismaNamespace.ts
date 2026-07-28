@@ -387,7 +387,8 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  SaveItem: 'SaveItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -403,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification"
+    modelProps: "user" | "session" | "account" | "verification" | "saveItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -703,6 +704,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SaveItem: {
+      payload: Prisma.$SaveItemPayload<ExtArgs>
+      fields: Prisma.SaveItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SaveItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SaveItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload>
+        }
+        findFirst: {
+          args: Prisma.SaveItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SaveItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload>
+        }
+        findMany: {
+          args: Prisma.SaveItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload>[]
+        }
+        create: {
+          args: Prisma.SaveItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload>
+        }
+        createMany: {
+          args: Prisma.SaveItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SaveItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload>[]
+        }
+        delete: {
+          args: Prisma.SaveItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload>
+        }
+        update: {
+          args: Prisma.SaveItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.SaveItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SaveItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SaveItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.SaveItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SaveItemPayload>
+        }
+        aggregate: {
+          args: Prisma.SaveItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSaveItem>
+        }
+        groupBy: {
+          args: Prisma.SaveItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SaveItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SaveItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SaveItemCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -800,6 +875,25 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
+export const SaveItemScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  title: 'title',
+  content: 'content',
+  summary: 'summary',
+  tags: 'tags',
+  author: 'author',
+  status: 'status',
+  publishedAt: 'publishedAt',
+  ogImage: 'ogImage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type SaveItemScalarFieldEnum = (typeof SaveItemScalarFieldEnum)[keyof typeof SaveItemScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -862,6 +956,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ItemStatus'
+ */
+export type EnumItemStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ItemStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ItemStatus[]'
+ */
+export type ListEnumItemStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ItemStatus[]'>
     
 
 
@@ -992,6 +1100,7 @@ export type GlobalOmitConfig = {
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit
+  saveItem?: Prisma.SaveItemOmit
 }
 
 /* Types for Logging */
